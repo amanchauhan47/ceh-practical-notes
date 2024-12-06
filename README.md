@@ -810,7 +810,7 @@ Directory Busting
 		Create user: aws iam create-user
 
 	
-## Cryptography
+## Cryptography 20
 
     # Encrypt the Information using Various Cryptography Tools
 	
@@ -872,8 +872,8 @@ Directory Busting
 	base64decode.org
 	md5hashing.net	
 	www.dcode.fr/caesar-cipher
-##=========================================================COMPLETE======================================================##
 
+## Important Stuff :
 		
 Steganography
 
