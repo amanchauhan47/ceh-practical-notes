@@ -1,4 +1,3 @@
-
 ## Footprinting 02
  
 Footprinting with Social Websites
@@ -1017,7 +1016,8 @@ Wireshark (Packet Sniffing)
 	ACK:	  tcp.flags.syn == 0 && tcp.flags.ack == 1
 
 
-RDP 
+RDP
+
     # Confirm RDP is running or not?
 	msfconsole -q
 		> search rdp_scanner
