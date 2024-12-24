@@ -651,6 +651,7 @@ Directory Busting
 ## Wireless Hacking 16
 
 	aircrack-ng WEPcrack-01.cap
+ 	aircrack-ng WPA.cap -w wordlist.txt
 	aircrack-ng -a 2 -b <bssid> WPA2crack-01.cap -w wordlist.txt
 	
 ## Hacking Mobile Platforms 17
