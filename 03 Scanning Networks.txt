@@ -1,7 +1,0 @@
-
-## Scanning Network 03
-	Nmap Port Scan
-	Angry IP Scanner.exe (discovering live hosts)
-	Service Version Check with Metasploit (like smb_version)
-	
-	
