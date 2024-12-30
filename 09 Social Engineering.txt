@@ -1,6 +1,0 @@
-## Social Engineering 09
-
-	setoolkit (Credential Harvester)
-
-	https://phistank.org
-	netcraft extension (site report)
