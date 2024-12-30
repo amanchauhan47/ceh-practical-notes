@@ -1,6 +1,0 @@
-
-## Wireless Hacking 16
-
-	aircrack-ng WEPcrack-01.cap
-	aircrack-ng -a 2 -b <bssid> WPA2crack-01.cap -w wordlist.txt
-	
