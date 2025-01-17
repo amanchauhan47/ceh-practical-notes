@@ -749,6 +749,7 @@ Directory Busting
 	aws s3 ls s3://certifiedhacker02
 
 	https://certifiedhacker02.s3.amazonaws.com/
+ 	http://flaws.cloud.s3.amazonaws.com/
 
 	echo “You have been hacked” >> Hack.txt
 	aws s3 mv Hack.txt s3://certifiedhacker02
