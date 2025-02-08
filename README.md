@@ -1,5 +1,5 @@
 # CEH-Practical-Notes
-![Key Generation](logo.png)
+![Key Generation](CEH-Practical-Logo.png)
 
 ## Footprinting 02
  
